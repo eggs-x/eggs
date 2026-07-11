@@ -1,0 +1,2 @@
+import{it as e,nt as t,t as n}from"./jsx-runtime-DIUC5MQP.js";import{t as r}from"./react-dom-CH79NVG_.js";import{n as i}from"./FloatingPortal-p1BSr3hq.js";var a=e(t(),1),o=e(r(),1),s=n(),c=a.forwardRef(function(e,t){let{children:n,container:r,className:c,render:l,style:u,...d}=e,{portalNode:f,portalSubtree:p}=i({container:r,ref:t,componentProps:e,elementProps:d});return!p&&!f?null:(0,s.jsxs)(a.Fragment,{children:[p,f&&o.createPortal(n,f)]})});export{c as t};
+//# sourceMappingURL=FloatingPortalLite-Dl_AYKve.js.map

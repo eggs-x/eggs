@@ -1,0 +1,2 @@
+import{nt as e,t}from"./jsx-runtime-DIUC5MQP.js";import{a as n}from"./link-CxgwlJNY.js";e();var r=t();function i({text:e,className:t,leftIcon:i,rightIcon:a}){return(0,r.jsxs)(`span`,{className:n(`h-5 text-xs py-0.5 px-1 rounded-md text-nowrap`,`text-mist-700 dark:text-mist-100`,`bg-mist-100 dark:bg-mist-700`,`inline-flex items-center gap-x-1`,t),children:[i,e,a]})}export{i as t};
+//# sourceMappingURL=chip-u20cZuly.js.map

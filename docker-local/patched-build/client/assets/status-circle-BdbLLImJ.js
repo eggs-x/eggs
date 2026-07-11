@@ -1,0 +1,2 @@
+import{t as e}from"./jsx-runtime-DIUC5MQP.js";import{a as t}from"./link-CxgwlJNY.js";var n=e();function r({isOnline:e,className:r}){return(0,n.jsxs)(`svg`,{className:t(e?`text-green-600 dark:text-green-500`:`text-mist-200 dark:text-mist-800`,r),viewBox:`0 0 24 24`,fill:`currentColor`,children:[(0,n.jsx)(`title`,{children:e?`Online`:`Offline`}),(0,n.jsx)(`circle`,{cx:`12`,cy:`12`,r:`8`})]})}export{r as t};
+//# sourceMappingURL=status-circle-BdbLLImJ.js.map

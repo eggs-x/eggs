@@ -1,0 +1,2 @@
+import{t as e}from"./jsx-runtime-DIUC5MQP.js";import{a as t}from"./link-CxgwlJNY.js";var n=e();function r(e){return(0,n.jsx)(`div`,{...e,className:t(`rounded-lg`,`border border-mist-200 dark:border-mist-800`,e.className),children:e.children})}function i(e){return(0,n.jsx)(`div`,{...e,className:t(`flex items-center justify-between p-2 last:border-b-0`,`border-b border-mist-200 dark:border-mist-800`,e.className),children:e.children})}var a=Object.assign(r,{Item:i});export{a as t};
+//# sourceMappingURL=table-list-DMDBkPbb.js.map

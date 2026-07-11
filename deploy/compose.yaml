@@ -1,0 +1,53 @@
+services:
+  headscale:
+    image: headscale:0.29.2
+    container_name: headscale
+    command: serve
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "headscale", "health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    labels:
+      me.tale.headplane.target: headscale
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    volumes:
+      - ./config/headscale-config.yaml:/etc/headscale/config.yaml
+      - headscale-data:/var/lib/headscale
+
+  headplane:
+    image: headplane:local
+    container_name: headplane
+    restart: unless-stopped
+    depends_on:
+      headscale:
+        condition: service_healthy
+    environment:
+      NODE_OPTIONS: --no-deprecation
+    expose:
+      - "3000"
+    volumes:
+      - ./config/headplane-config.yaml:/etc/headplane/config.yaml
+      - ./config/headscale-config.yaml:/etc/headscale/config.yaml
+      - headplane-data:/var/lib/headplane
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  headplane-proxy:
+    image: nginx:1.29-alpine
+    container_name: headplane-proxy
+    restart: unless-stopped
+    depends_on:
+      headplane:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+
+volumes:
+  headscale-data:
+  headplane-data:

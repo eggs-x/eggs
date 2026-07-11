@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
-import { useRevalidator } from "react-router";
+import { useLocation, useRevalidator } from "react-router";
 
 const LiveDataContext = createContext({
   paused: false,
@@ -17,6 +17,7 @@ interface ChangedEvent {
 }
 
 export function LiveDataProvider({ children }: LiveDataProps) {
+  const location = useLocation();
   const revalidator = useRevalidator();
   const [paused, setPaused] = useState(false);
 
@@ -40,6 +41,10 @@ export function LiveDataProvider({ children }: LiveDataProps) {
 
   // SSE connection
   useEffect(() => {
+    if (location.pathname === "/login" || location.pathname === `${__PREFIX__}/login`) {
+      return;
+    }
+
     if (paused) {
       if (eventSourceRef.current) {
         eventSourceRef.current.close();
@@ -103,7 +108,7 @@ export function LiveDataProvider({ children }: LiveDataProps) {
         reconnectTimer.current = null;
       }
     };
-  }, [paused, revalidateIfIdle]);
+  }, [location.pathname, paused, revalidateIfIdle]);
 
   // If the tab becomes visible and is marked dirty, revalidate
   useEffect(() => {

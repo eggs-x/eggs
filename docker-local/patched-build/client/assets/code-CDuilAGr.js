@@ -1,0 +1,2 @@
+import{t as e}from"./jsx-runtime-DIUC5MQP.js";import{a as t}from"./link-CxgwlJNY.js";var n=e();function r({children:e,className:r}){return(0,n.jsx)(`code`,{className:t(`bg-mist-100 dark:bg-mist-800 px-1.5 py-0.5 font-mono rounded-sm text-[0.875em]`,r),children:e})}export{r as t};
+//# sourceMappingURL=code-CDuilAGr.js.map

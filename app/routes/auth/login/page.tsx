@@ -146,7 +146,7 @@ export default function Page({ loaderData, actionData }: Route.ComponentProps) {
         ) : undefined}
         <Card className="m-4 max-w-md sm:m-0">
           <Card.Title>Welcome to Headplane</Card.Title>
-          <Form method="POST">
+          <Form method="POST" reloadDocument>
             <Card.Text>
               Enter an API key to authenticate with Headplane. You can generate one by running{" "}
               <Code>headscale apikeys create</Code> in your terminal.

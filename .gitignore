@@ -14,3 +14,6 @@ node_modules
 /docs/.vitepress/cache/
 /.direnv
 /vendor
+
+# Prebuilt image archives (server builds from Dockerfile instead)
+/deploy/images/

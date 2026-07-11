@@ -1,42 +1,57 @@
-# THIS IS A DEVELOPER CONFIGURATION FILE
-# IT IS NOT AN EXAMPLE OF SOMETHING YOU DEPLOY
-# I ONLY USE IT FOR DEVELOPING HEADPLANE
-
-networks:
-  headplane-dev:
-    name: "headplane-dev"
-    driver: "bridge"
 services:
-  caddy:
-    image: "caddy:2"
-    container_name: "headplane-caddy"
-    restart: "unless-stopped"
-    depends_on:
-      - "headscale"
-    networks:
-      - "headplane-dev"
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - "./Caddyfile:/etc/caddy/Caddyfile"
-      - "./test/caddy/data:/data"
-      - "./test/caddy/config:/config"
-      - "./test/caddy/certs:/certs"
   headscale:
-    image: "headscale/headscale:0.29.0"
-    container_name: "headscale"
+    image: headscale/headscale:0.29.2
+    container_name: headscale
+    command: serve
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "headscale", "health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
     labels:
       me.tale.headplane.target: headscale
-    restart: "unless-stopped"
-    command: "serve"
-    networks:
-      - "headplane-dev"
-    volumes:
-      - "./.cache/headscale:/var/lib/headscale"
-      - "./test:/etc/headscale"
     ports:
       - "8080:8080"
       - "9090:9090"
+    volumes:
+      - ./docker-local/headscale-config.yaml:/etc/headscale/config.yaml
+      - headscale-data:/var/lib/headscale
+
+  headplane:
+    image: headplane-local:fixed-login
+    build:
+      context: .
+      dockerfile: docker-local/Dockerfile.headplane-patched
+    pull_policy: build
+    container_name: headplane
+    restart: unless-stopped
+    depends_on:
+      headscale:
+        condition: service_healthy
     environment:
-      TZ: "America/New_York"
+      NODE_OPTIONS: --no-deprecation
+    expose:
+      - "3000"
+    volumes:
+      - ./docker-local/headplane-config.yaml:/etc/headplane/config.yaml
+      - ./docker-local/headscale-config.yaml:/etc/headscale/config.yaml
+      - headplane-data:/var/lib/headplane
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  headplane-proxy:
+    image: nginx:1.29-alpine
+    container_name: headplane-proxy
+    restart: unless-stopped
+    depends_on:
+      headplane:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./docker-local/nginx.conf:/etc/nginx/nginx.conf:ro
+
+volumes:
+  headscale-data:
+  headplane-data:

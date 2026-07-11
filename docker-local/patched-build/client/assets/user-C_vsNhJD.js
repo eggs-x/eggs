@@ -1,0 +1,2 @@
+import{o as e}from"./link-CxgwlJNY.js";var t=e(`plus`,[[`path`,{d:`M5 12h14`,key:`1ays0h`}],[`path`,{d:`M12 5v14`,key:`s699le`}]]);function n(e){return e.name===`tagged-devices`?`Tag-owned`:e.name||e.displayName||e.email||e.id}export{t as n,n as t};
+//# sourceMappingURL=user-C_vsNhJD.js.map
